@@ -98,15 +98,17 @@ def riscos():
     print(randword)
     print(separate)
     while x<len(separate):
-        t4.pendown()
-        t4.fd(25)
-        t4.penup()
-        t4.fd(25)
         if (' ') in separate[z]:
             t4.penup()
-            t4.fd(20)
+            t4.fd(40)
         else:
-            pass
+            
+            
+            t4.pendown()
+            t4.fd(23)
+            t4.penup()
+            t4.fd(28)
+        
         x+=1
         z+=1
 
@@ -114,6 +116,7 @@ def jogo():
     global error
     global randword
     global separate
+    global k
     lett=[]
     lettsort=sorted(lett)
     t5.penup()
@@ -125,13 +128,16 @@ def jogo():
     t5.pendown()
     j=0    
     print(t5.pos())
+    palavra=sorted(separate)
+    if (' ') in separate:
+        esp=palavra.count(' ')
+        while k<esp:
+            lett.append(' ')
+            print(separate)
+            k+=1
     while error<6:
         letra=janela.textinput("escolha uma letra","letra:")# input de uma letra
         letra=letra.lower()#deixa as letras das palavras em letra minuscula
-        #deixa as letras da palavra em minuscula
-        palavra=sorted(separate)
-        #organiza todas as letras da palavra
-        #retira o espaço
         countador=0#contador para ver quantas daquela mesma letra aparece na palavra 
         
        
@@ -145,29 +151,31 @@ def jogo():
                     while j<len(separate):
                          t5.penup()                         
                          t5.fd(23)
-                         if letra in separate[j]:
+                         t5.pendown()
+                         
+                         if letra == separate[j]:
                              t5.write(letra,font=("Arial",40,"normal"))
                              t5.penup()
                              t5.fd(28)
                              t5.pendown()
                          else:
-                             t5.penup()
-                             t5.fd(28)
-                             t5.pendown()
-                             if (' ') in separate [j]:
+                             if (' ') == separate [j]:
                                  t5.penup()
-                                 t5.fd(40)
-                                 t5.pendown()
+                                 t5.fd(12)
+                                 
                              else:
-                                 pass
+                                 t5.penup()
+                                 t5.fd(28)
+                                 t5.pendown()
+                         
+                             
+                           
+                                 
                                  
                          j+=1
                        
                     y=palavra.count(letra)#conta quantas letras iguais tem na palavra
-                    while (' ') in separate and (' ') in palavra:
-                        separate.remove(' ')
-                        palavra.remove(' ')
-                        print(separate)                   
+                              
                     while countador<y: #while feito para armazenar a quantidade de letras iguais existem na palavra
                         lett.append(letra)
                         countador+=1
@@ -214,3 +222,5 @@ riscos()
 jogo()
 
             
+        
+    
