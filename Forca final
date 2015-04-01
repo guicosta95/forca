@@ -1,0 +1,216 @@
+import turtle 
+import random
+error=0
+janela=turtle.Screen()
+t = turtle.Turtle()#caneta da forca
+t2= turtle.Turtle()#caneta do bonquinho
+t3= turtle.Turtle()#caneta dos write
+t4= turtle.Turtle()#caneta do riscos
+t5= turtle.Turtle()#palavra
+t6= turtle.Turtle()
+t6.color("black")
+f = open("entrada.txt","r+", encoding="utf-8")#abre o arquivo
+palavras=f.readlines()#le as linhas do arquivo
+janela.bgcolor("black")#abre a janela
+t.pensize(width=10)
+t.pencolor("blue")
+t.penup()
+t.back(200)
+t.pendown()
+t.left(90)
+t.fd(200)
+t.right(90)
+t.fd(100)
+t.right(90)
+t.fd(50)
+t2.pencolor("red")
+t2.pensize(width=10)
+t2.pensize(width=7)
+t2.penup()
+t2.backward(70)
+t2.left(90)
+t2.fd(120)
+t.hideturtle()
+t2.hideturtle()
+randword=random.choice(palavras)#escolhe uma palavra randomica
+t4.penup()
+t4.pencolor("green")
+t4.pensize(width=5)
+t4.backward(100)
+t4.right(90)
+t4.fd(150)
+t4.left(90)
+t4.backward(140)
+t5.pensize(width=5)
+t5.pencolor("pink")
+t5.pendown()
+t4.hideturtle()
+print (len(randword))
+randword=randword.lower()
+x=0 
+z=0
+y=0
+k=0
+separate=[i for i in randword]
+separate.remove('\n')
+
+
+
+def bonequinho():
+    if error==1:
+        t2.pendown()
+        t2.circle(30)  
+    if error==2: 
+        t2.penup()
+        t2.left(90)
+        t2.fd(30)
+        t2.left(90)
+        t2.fd(30)
+        t2.pendown()
+        t2.fd(70)
+    if error==3: 
+        t2.penup()
+        t2.backward(50)
+        t2.pendown()
+        t2.left(90)
+        t2.fd(40)
+    if error==4:
+        t2.backward(80)
+    if error==5:
+        t2.penup
+        t2.fd(40)
+        t2.right(90)
+        t2.fd(70)
+        t2.left(30)
+        t2.fd(40)
+    if error==6:
+        t2.penup()
+        t2.backward(40)
+        t2.left(270)
+        t2.pendown()
+        t2.fd(40)
+        
+def riscos():
+    global randword
+    global separate
+    global x
+    global z
+    print(randword)
+    print(separate)
+    while x<len(separate):
+        t4.pendown()
+        t4.fd(25)
+        t4.penup()
+        t4.fd(25)
+        if (' ') in separate[z]:
+            t4.penup()
+            t4.fd(20)
+        else:
+            pass
+        x+=1
+        z+=1
+
+def jogo():  
+    global error
+    global randword
+    global separate
+    lett=[]
+    lettsort=sorted(lett)
+    t5.penup()
+    t5.backward(100)
+    t5.right(90)
+    t5.fd(100)
+    t5.left(90)
+    t5.backward(145)
+    t5.pendown()
+    j=0    
+    print(t5.pos())
+    while error<6:
+        letra=janela.textinput("escolha uma letra","letra:")# input de uma letra
+        letra=letra.lower()#deixa as letras das palavras em letra minuscula
+        #deixa as letras da palavra em minuscula
+        palavra=sorted(separate)
+        #organiza todas as letras da palavra
+        #retira o espaço
+        countador=0#contador para ver quantas daquela mesma letra aparece na palavra 
+        
+       
+        if len(letra) == 1:# verifica se o usuario colocou uma letra
+            if letra in separate:#verifica se a letra existe na palavra
+                if letra not in lett:#verifica se a letra ja foi usada
+                    print("voce acertou")
+                    j=0
+                    t5.penup()
+                    t5.setpos(-260.00,-150.00)
+                    while j<len(separate):
+                         t5.penup()                         
+                         t5.fd(23)
+                         if letra in separate[j]:
+                             t5.write(letra,font=("Arial",40,"normal"))
+                             t5.penup()
+                             t5.fd(28)
+                             t5.pendown()
+                         else:
+                             t5.penup()
+                             t5.fd(28)
+                             t5.pendown()
+                             if (' ') in separate [j]:
+                                 t5.penup()
+                                 t5.fd(40)
+                                 t5.pendown()
+                             else:
+                                 pass
+                                 
+                         j+=1
+                       
+                    y=palavra.count(letra)#conta quantas letras iguais tem na palavra
+                    while (' ') in separate and (' ') in palavra:
+                        separate.remove(' ')
+                        palavra.remove(' ')
+                        print(separate)                   
+                    while countador<y: #while feito para armazenar a quantidade de letras iguais existem na palavra
+                        lett.append(letra)
+                        countador+=1
+                        lettsort=sorted(lett)
+                        print(lettsort)
+                        print (palavra)
+                    
+                    
+                    if lettsort==palavra:# verifica se o usuario chutou todas as letras da palavra
+                        t3.pd()
+                        t3.hideturtle()
+                        t3.color('red')
+                        t3.setpos(0,0)
+                        t3.write("você está salvo!",font=("Arial",30,"normal"))
+                        break
+                        
+                else:
+                    print("voce ja escolheu esta letra!")
+                    pass
+            
+            else:
+                pass
+        else:
+            print('escolha uma letra!')
+        if letra not in randword and error<6:
+            error=error+1
+            print("voce errou")
+            bonequinho()
+    if error==6:
+        t3.pd()
+        t3.hideturtle()
+        t3.color('red')
+        t3.setpos(0,0)
+        t3.write("você perdeu",font=("Arial",30,"normal"))
+
+
+
+     
+     
+    
+            
+
+riscos()
+jogo()
+
+            
